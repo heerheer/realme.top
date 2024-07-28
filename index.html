@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- <link rel="stylesheet" href="/style.css" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>真我纯1 - Realme.top</title>
+  </head>
+  <body>
+    <div
+      class="fixed bg-gray-50 w-screen h-screen flex justify-center items-center px-4"
+    >
+      <!-- Your app goes here -->
+      <div class="flex flex-col items-start">
+        <div class="flex flex-col items-end sm:flex-row gap-2 sm:justify-start">
+          <div id="pre_text" class="text-4xl flex items-end">
+            你说的对，但
+            <div
+              class="bg-black flex items-center justify-center aspect-square w-10 text-white"
+            >
+              我
+            </div>
+            是
+          </div>
+          <div id="type_text" class="text-8xl min-w-56 colorful">Side</div>
+        </div>
+
+        <div class="mt-16 w-full justify-center items-stretch">
+          <div class="text-lg">
+            高端的骚货往往都以
+            <span class="underline">Side</span>
+            的形式出现,多大都
+            <ruby>
+              塞<rp>(</rp><rt>Si</rt><rp>)</rp> 的<rp>(</rp><rt>de</rt
+              ><rp>)</rp>
+            </ruby>
+            下
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header -->
+    <div class="fixed w-full flex p-2 items-center">
+      <div class="flex-1">
+        <div class="logo h-8 bg-contain bg-no-repeat"></div>
+      </div>
+      <button class="btn" id="github" title="访问小赫的Github看看他有多fw!">
+        <img src="/external-link-line.svg" class="w-5 h-5" /> 做一下1
+      </button>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+  <style type="text/css">
+    .logo {
+      background-image: url("/logo.png");
+    }
+    .btn {
+      @apply flex items-center gap-1 bg-gray-200 rounded-md px-2 py-1 text-lg cursor-pointer  
+      transition ease-in-out  hover:scale-[0.85];
+    }
+    .stroke {
+      -webkit-text-stroke: 0.6px black;
+      @apply text-transparent;
+    }
+  </style>
+  <script>
+    // 获取按钮元素
+    const button = document.getElementById("github");
+
+    // 添加点击事件监听器
+    button.addEventListener("click", function () {
+      window.location.href = "https://github.com/heerheer";
+    });
+  </script>
+</html>
