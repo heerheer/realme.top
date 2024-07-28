@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <!-- <link rel="stylesheet" href="/style.css" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,9 +18,9 @@
       class="fixed bg-gray-50 w-screen h-screen flex justify-center items-center px-4"
     >
       <!-- Your app goes here -->
-      <div class="flex flex-col items-start">
+      <div class="flex flex-col items-center">
         <div class="flex flex-col items-end sm:flex-row gap-2 sm:justify-start">
-          <div id="pre_text" class="text-4xl flex items-end">
+          <div id="pre_text" class="text-4xl flex items-end font-bold">
             你说的对，但
             <div
               class="bg-black flex items-center justify-center aspect-square w-10 text-white"
@@ -29,31 +29,38 @@
             </div>
             是
           </div>
-          <div id="type_text" class="text-8xl min-w-56 colorful">Side</div>
+          <div id="type_text" class="text-8xl min-w-56 colorful font-black">Side</div>
         </div>
 
-        <div class="mt-16 w-full justify-center items-stretch">
+        <div class="mt-16 w-full justify-center items-stretch opacity-75">
           <div class="text-lg">
             高端的骚货往往都以
-            <span class="underline">Side</span>
+            <a id="side_a" class="underline"  >Side</a>
             的形式出现,多大都
-            <ruby>
-              塞<rp>(</rp><rt>Si</rt><rp>)</rp> 的<rp>(</rp><rt>de</rt
-              ><rp>)</rp>
-            </ruby>
+            <ruby> 塞得<rp>(</rp><rt>side</rt><rp>)</rp> </ruby>
             下
           </div>
         </div>
       </div>
     </div>
     <!-- Header -->
-    <div class="fixed w-full flex p-2 items-center">
+    <div class="fixed w-full flex px-2 items-center h-12">
       <div class="flex-1">
         <div class="logo h-8 bg-contain bg-no-repeat"></div>
       </div>
       <button class="btn" id="github" title="访问小赫的Github看看他有多fw!">
         <img src="/external-link-line.svg" class="w-5 h-5" /> 做一下1
       </button>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- The Close Button -->
+      <span class="close">&times;</span>
+
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01" />
+
     </div>
 
     <script type="module" src="/main.js"></script>
@@ -70,6 +77,66 @@
       -webkit-text-stroke: 0.6px black;
       @apply text-transparent;
     }
+    a {
+      @apply underline cursor-pointer;
+    }
+
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0); /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (Image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    @keyframes zoom {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+
+    /* The Close Button */
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px) {
+      .modal-content {
+        width: 100%;
+      }
+    }
   </style>
   <script>
     // 获取按钮元素
@@ -79,5 +146,25 @@
     button.addEventListener("click", function () {
       window.location.href = "https://github.com/heerheer";
     });
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+
+    var side_a = document.getElementById("side_a");
+    var modalImg = document.getElementById("img01");
+
+    side_a.onclick = function () {
+      modal.style.display = "block";
+      modalImg.src = '/what.jpg';
+    };
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
   </script>
 </html>
