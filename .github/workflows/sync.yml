@@ -1,0 +1,61 @@
+# .github/workflows/sync.yml
+
+name: Sync with Hugging Face Hub
+
+on:
+  schedule:
+    # 每天凌晨3点运行 (UTC时间)
+    - cron: '0 3 * * *'
+  # 允许手动触发
+  workflow_dispatch:
+
+# 关键步骤1：为工作流授予向仓库写入内容的权限
+# 这会让 GITHUB_TOKEN 拥有 push 权限
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 关键步骤2：检出你自己的GitHub仓库
+      # 这一步至关重要，它确保了 .github 文件夹和你的仓库历史是存在的。
+      # 同时，它会自动配置好 Git，以便后续的 `git push` 可以使用 GITHUB_TOKEN 进行认证。
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
+        with:
+          # 如果HF仓库包含LFS文件，这里需要设置为true
+          lfs: true
+          # 如果仓库很大，可以只拉取最新的历史以加快速度
+          fetch-depth: 1
+
+      # 步骤3：将Hugging Face仓库克隆到一个临时的子目录中
+      - name: Clone Hugging Face repository into a temp directory
+        # ！！！请将这里的URL替换成你想要同步的HF仓库
+        run: git clone --depth 1 https://huggingface.co/spaces/heerharmog/realme-top hf_temp_repo
+
+      # 关键步骤4：使用rsync智能同步文件，并保护.github文件夹
+      - name: Sync files from temp repo to main repo
+        run: |
+          # -a: 归档模式, -v: 显示过程, --delete: 删除目标目录中多余的文件, 保证是镜像
+          # --exclude='.git*': 排除所有.git相关文件和目录
+          # --exclude='.github/': 核心！排除.github目录，保护我们的workflow不被删除
+          rsync -av --delete --exclude='.git*' --exclude='.github/' hf_temp_repo/ .
+
+      # 步骤5：提交并推送变更
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions-bot@github.com"
+          
+          # 检查是否有文件变动，如果没有则退出，避免创建空的commit
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit. Working tree is clean."
+            exit 0
+          fi
+          
+          git add .
+          git commit -m "Automated sync from Hugging Face"
+          
+          # 直接推送即可，因为 actions/checkout@v4 已经帮我们配置好了认证
+          git push
