@@ -1,19 +1,159 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真我纯1 - Realme.top</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .side-highlight {
+            position: relative;
+        }
+        .side-highlight::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 100%;
+            height: 8px;
+            background: rgba(251, 191, 36, 0.3);
+            z-index: -1;
+            transform: skewY(-2deg);
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .typing-effect {
+            border-right: 2px solid;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #f59e0b; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+    <header class="py-6 px-4 sm:px-6 lg:px-8 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl sm:text-3xl font-bold gradient-text">真我纯1</h1>
+            <span class="text-sm sm:text-base text-gray-400">Realme.top</span>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+        <div class="max-w-3xl w-full space-y-12 text-center">
+            <div class="space-y-6">
+                <div class="text-xl sm:text-2xl md:text-3xl font-medium">
+                    你说的对，但我是 <span class="typing-effect">Side</span>
+                </div>
+            </div>
+
+            <div class="relative h-1 w-full max-w-xs mx-auto bg-gradient-to-r from-transparent via-amber-400 to-transparent my-8"></div>
+
+            <div class="text-lg sm:text-xl md:text-2xl leading-relaxed">
+                <p class="mb-6">
+                    <span class="side-highlight font-medium">高端的骚货往往都以 Side 的形式出现,</span>
+                </p>
+                <p class="text-amber-400 font-bold">
+                    多大都 <span class="underline decoration-wavy decoration-amber-400">塞得(side)</span> 下
+                </p>
+            </div>
+
+            <div class="pt-8">
+                <button id="actionButton" class="relative overflow-hidden group px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-pink-500 text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    <span class="relative z-10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        做一下1
+                    </span>
+                    <span class="absolute inset-0 bg-gradient-to-r from-pink-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-6 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex space-x-4 mb-4 sm:mb-0">
+                <a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">
+                    <i class="fab fa-weixin text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">
+                    <i class="fab fa-weibo text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">
+                    <i class="fab fa-qq text-xl"></i>
+                </a>
+            </div>
+            <p class="text-sm text-gray-500">© 2023 Realme.top - 真我纯1</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Typing effect that alternates between Side and 骚货
+            const typingText = document.querySelector('.typing-effect');
+            const texts = ["Side", "骚货"];
+            let currentIndex = 0;
+            let isTyping = true;
+            let charIndex = 0;
+            
+            function type() {
+                if (isTyping) {
+                    if (charIndex < texts[currentIndex].length) {
+                        typingText.textContent = texts[currentIndex].substring(0, charIndex + 1);
+                        charIndex++;
+                        setTimeout(type, 150);
+                    } else {
+                        isTyping = false;
+                        setTimeout(type, 2000);
+                    }
+                } else {
+                    if (charIndex > 0) {
+                        typingText.textContent = texts[currentIndex].substring(0, charIndex - 1);
+                        charIndex--;
+                        setTimeout(type, 100);
+                    } else {
+                        isTyping = true;
+                        currentIndex = (currentIndex + 1) % texts.length;
+                        setTimeout(type, 500);
+                    }
+                }
+            }
+            
+            setTimeout(type, 1000);
+            
+            // Button animation
+            const actionButton = document.getElementById('actionButton');
+            actionButton.addEventListener('click', function() {
+                this.classList.add('animate-pulse');
+                setTimeout(() => {
+                    this.classList.remove('animate-pulse');
+                    // Add your action here
+                    alert('Action triggered!');
+                }, 1000);
+            });
+            
+            // Floating elements animation
+            const floatingElements = document.querySelectorAll('.floating');
+            floatingElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.3}s`;
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=heerharmog/realme-top" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
